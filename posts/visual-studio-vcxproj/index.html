@@ -1,0 +1,165 @@
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    
+    Шпаргалка по созданию простейшего файла проекта .vcxproj Visual Studio | Simple Blog
+    
+  </title>
+  
+  
+  <link rel="stylesheet" href="https://futorunus.github.io/css/base.min.55fc3609d516ff48c08c23e4ab4c4f480a3cbbdd0cce1b972d7c2b15e3da6217.css" integrity="sha256-Vfw2CdUW/0jAjCPkq0xPSAo8u90MzhuXLXwrFePaYhc=">
+  
+  <meta name="generator" content="Hugo 0.55.5" />
+</head>
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="https://futorunus.github.io/">Simple Blog</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="https://futorunus.github.io/about/">About</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="https://futorunus.github.io/archive/">Archive</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="https://futorunus.github.io/tags/">Tags</a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
+        
+
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="https://futorunus.github.io/posts/visual-studio-vcxproj/" rel="bookmark">Шпаргалка по созданию простейшего файла проекта .vcxproj Visual Studio</a>
+  </h2>
+  
+  <time datetime="2019-03-02T10:00:11&#43;01:00">
+    2 March, 2019
+  </time>
+  
+</header>
+  
+
+<h2 id="вынос-настроек-проекта-в-props-файлы">Вынос настроек проекта в .props файлы</h2>
+
+<p><strong>.vcxproj</strong> - это обычный XML-документ и его можно логически разделить на две части:</p>
+
+<ul>
+<li>сам <strong>.vcxproj</strong> файл, содержащий список включенных в проект исходных файлов</li>
+<li>файл <strong>.props</strong>, содержащий настройки проекта</li>
+</ul>
+
+<p><strong>.vcxproj</strong></p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+<span style="color:#f92672">&lt;Project</span> <span style="color:#a6e22e">DefaultTargets=</span><span style="color:#e6db74">&#34;Build&#34;</span> <span style="color:#a6e22e">ToolsVersion=</span><span style="color:#e6db74">&#34;12.0&#34;</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://schemas.microsoft.com/developer/msbuild/2003&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;Import</span> <span style="color:#a6e22e">Project=</span><span style="color:#e6db74">&#34;$(SolutionDir)\settings.props&#34;</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;PropertyGroup</span> <span style="color:#a6e22e">Label=</span><span style="color:#e6db74">&#34;Globals&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;ProjectGuid&gt;</span>{0D35456E-42DA-418B-87D4-55E32B8E1373}<span style="color:#f92672">&lt;/ProjectGuid&gt;</span>
+    <span style="color:#f92672">&lt;TargetFrameworkVersion&gt;</span>v4.5<span style="color:#f92672">&lt;/TargetFrameworkVersion&gt;</span>
+  <span style="color:#f92672">&lt;/PropertyGroup&gt;</span>
+  <span style="color:#f92672">&lt;ItemGroup&gt;</span>
+    <span style="color:#f92672">&lt;ClInclude</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;module.h&#34;</span> <span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;ClCompile</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;module.cpp&#34;</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;/ItemGroup&gt;</span>
+<span style="color:#f92672">&lt;/Project&gt;</span></code></pre></div>
+
+<p><strong>settings.props</strong></p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+<span style="color:#f92672">&lt;Project</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://schemas.microsoft.com/developer/msbuild/2003&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;ItemGroup&gt;</span>
+    <span style="color:#f92672">&lt;ProjectConfiguration</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;Debug|Win32&#34;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;Configuration&gt;</span>Debug<span style="color:#f92672">&lt;/Configuration&gt;</span>
+      <span style="color:#f92672">&lt;Platform&gt;</span>Win32<span style="color:#f92672">&lt;/Platform&gt;</span>
+    <span style="color:#f92672">&lt;/ProjectConfiguration&gt;</span>
+    <span style="color:#f92672">&lt;ProjectConfiguration</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;Release|Win32&#34;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;Configuration&gt;</span>Release<span style="color:#f92672">&lt;/Configuration&gt;</span>
+      <span style="color:#f92672">&lt;Platform&gt;</span>Win32<span style="color:#f92672">&lt;/Platform&gt;</span>
+    <span style="color:#f92672">&lt;/ProjectConfiguration&gt;</span>
+  <span style="color:#f92672">&lt;/ItemGroup&gt;</span>
+
+  <span style="color:#f92672">&lt;PropertyGroup&gt;</span>
+    <span style="color:#f92672">&lt;ConfigurationType&gt;</span>Application<span style="color:#f92672">&lt;/ConfigurationType&gt;</span>
+    <span style="color:#f92672">&lt;PlatformToolset&gt;</span>v120<span style="color:#f92672">&lt;/PlatformToolset&gt;</span>                      -- VS 2013
+  <span style="color:#f92672">&lt;/PropertyGroup&gt;</span>
+
+  <span style="color:#f92672">&lt;Import</span> <span style="color:#a6e22e">Project=</span><span style="color:#e6db74">&#34;$(VCTargetsPath)\Microsoft.Cpp.default.props&#34;</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;Import</span> <span style="color:#a6e22e">Project=</span><span style="color:#e6db74">&#34;$(VCTargetsPath)\Microsoft.Cpp.props&#34;</span> <span style="color:#f92672">/&gt;</span>
+
+  <span style="color:#f92672">&lt;Import</span> <span style="color:#a6e22e">Project=</span><span style="color:#e6db74">&#34;$(VCTargetsPath)\Microsoft.Cpp.targets&#34;</span> <span style="color:#f92672">/&gt;</span>
+
+  <span style="color:#f92672">&lt;ItemDefinitionGroup</span> <span style="color:#a6e22e">Condition=</span><span style="color:#e6db74">&#34;&#39;$(Configuration)|$(Platform)&#39;==&#39;Debug|Win32&#39;&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;ClCompile&gt;</span>
+      <span style="color:#f92672">&lt;Optimization&gt;</span>Disabled<span style="color:#f92672">&lt;/Optimization&gt;</span>
+      <span style="color:#f92672">&lt;DebugInformationFormat&gt;</span>EditAndContinue<span style="color:#f92672">&lt;/DebugInformationFormat&gt;</span>
+    <span style="color:#f92672">&lt;/ClCompile&gt;</span>
+    <span style="color:#f92672">&lt;Link&gt;</span>
+      <span style="color:#f92672">&lt;GenerateDebugInformation&gt;</span>true<span style="color:#f92672">&lt;/GenerateDebugInformation&gt;</span>
+    <span style="color:#f92672">&lt;/Link&gt;</span>
+  <span style="color:#f92672">&lt;/ItemDefinitionGroup&gt;</span>
+
+<span style="color:#f92672">&lt;/Project&gt;</span></code></pre></div>
+
+  
+<footer>
+  <ul class="Tags">
+    
+    
+    
+    <li class="Tags-item u-background">
+      <a class="Tags-link u-clickable" href="https://futorunus.github.io/tags/visual-studio/" rel="tag">Visual Studio</a>
+    </li>
+    
+    
+    
+    
+    <li class="Tags-item u-background">
+      <a class="Tags-link u-clickable" href="https://futorunus.github.io/tags/vcxproj/" rel="tag">vcxproj</a>
+    </li>
+    
+    
+  </ul>
+</footer>
+
+</article>
+
+
+      </div>
+    </div>
+  </main>
+  
+<footer class="Footer">
+  <div class="u-wrapper">
+    <div class="u-padding">
+      Simple Blog
+
+    </div>
+  </div>
+</footer>
+
+  
+</body>
+</html>
